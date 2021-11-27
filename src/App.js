@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { Environment } from '@react-three/drei';
+import Lights from './components/Lights';
+import Controls from './components/Controls';
+import Terrain from './components/Terrain';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <Suspense fallback={<span>loading...</span>}>
+        <Canvas camera={{ position: [0, 100, 600], zoom: 30 }}>
+          <color attach="background" args={['#ffd5c0']} />
+          <Lights/>
+          <Environment preset='night' />
+          <Controls />
+          <Terrain/>
+        </Canvas>
+      </Suspense>
+  )
 }
+
 
 export default App;
